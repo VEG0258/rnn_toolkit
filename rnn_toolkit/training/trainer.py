@@ -3,9 +3,11 @@ import torch.nn as nn
 
 def train_model(model, train_loader, loss, optimizer, batch_size, sequence_length, gradient_clipping, num_epochs=1000):
     model.train() 
-    hidden = model.make_gaussian_state_initializer(model.zero_init_hidden, noise = True)
+    hidden_states_h = []
+    hidden_states_c = []
 
     for epoch in range(num_epochs):
+        hidden = model.make_gaussian_state_initializer(model.zero_init_hidden, noise = True)
         for inputs, labels in train_loader:
             # Starting each batch, we detach the hidden state from how it was previously produced.
             # If we didn't, the model would try backpropagating all the way to start of the dataset.
@@ -19,5 +21,11 @@ def train_model(model, train_loader, loss, optimizer, batch_size, sequence_lengt
                 torch.nn.utils.clip_grad_norm_(model.parameters(), 0.01)
             optimizer.step()
 
+        h, c = hidden
+        hidden_states_h.append(h)
+        hidden_states_c.append(c)
+
         print(f"Epoch {epoch+1}, Loss: {loss.item()}, Last norm: {loss}")
+
+    return model, hidden_states_h, hidden_states_c
 

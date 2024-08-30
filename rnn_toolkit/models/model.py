@@ -13,8 +13,7 @@ class LSTMModel(nn.Module):
         #LSTM
         self.lstm = nn.LSTM(input_size=self.hidden_sizes[-1],
                             hidden_size=n_neurons,
-                            batch_first=True,
-                            return_sequences=True)
+                            batch_first=True)
         #Drop Out Layer
         self.drop1 = nn.Dropout(dropout)
         #Final Dense and Softmax Layers
@@ -25,14 +24,17 @@ class LSTMModel(nn.Module):
     #Create feed forward layers
     #if hidden_size is [20, 30, 40], then the model will create three feedforward layers with (input_dim, 20), (20, 30), (30, 40)
     def create_feedforward_layers(self, input_dim, hidden_sizes):
-        layers = []
-        for i, hidden_size in hidden_sizes:
-            if i == 0:
-                layers.append(nn.Linear(input_dim, hidden_size))
-            else:
-                layers.append(nn.Linear(hidden_size[-1], hidden_size))
-            layers.append(nn.ReLU())
-        return nn.Sequential(*layers)
+        layers = [] 
+        if hidden_sizes is None:
+            return None
+        else:
+            for i, hidden_size in hidden_sizes:
+                if i == 0:
+                    layers.append(nn.Linear(input_dim, hidden_size))
+                else:
+                    layers.append(nn.Linear(hidden_size[-1], hidden_size))
+                layers.append(nn.ReLU())
+            return nn.Sequential(*layers)
         
 
     #Initalizing the hidden states
@@ -43,7 +45,7 @@ class LSTMModel(nn.Module):
         return hidden
 
     #E.g., to create an initializer function that initializes the state with a mean of zero and standard deviation of 0.1, we call make_gaussian_state_initializer(zero_init_hidden, stddev=0.01). 
-    def make_gaussian_state_initializer(initializer, noise=False, mean = 0, stddev=0.1):
+    def make_gaussian_state_initializer(self, initializer, noise=False, mean = 0, stddev=0.1):
         def gaussian_state_initializer(shape, batch_size, dtype, index):
             init_state = initializer(shape, batch_size, dtype, index)
             if noise == True:
@@ -75,7 +77,7 @@ class LSTMModel(nn.Module):
             x = layer(x)
 
         #LSTM
-        x, hidden = self.lstm(x, self.hidden) 
+        x, hidden = self.lstm(x, hidden) 
         #Layer Normalization after LSTM
         x = self.lstm_norm(x)
 
