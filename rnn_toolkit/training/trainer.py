@@ -25,7 +25,22 @@ def train_model(model, train_loader, loss, optimizer, batch_size, sequence_lengt
         hidden_states_h.append(h)
         hidden_states_c.append(c)
 
+        #Save the model
+        save_frequency = 5
+        if (epoch + 1) % save_frequency == 0:
+            torch.save({
+                'epoch': epoch + 1,
+                'model_state_dict': model.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'loss': loss.item(),
+                'hidden_states_h': hidden_states_h,
+                'hidden_states_c': hidden_states_c
+            }, f"LSTM/model/epoch_{epoch + 1}.pt")
+            print(f"Model checkpoint saved at epoch {epoch + 1}")
+
+
         print(f"Epoch {epoch+1}, Loss: {loss.item()}, Last norm: {loss}")
 
     return model, hidden_states_h, hidden_states_c
+
 
