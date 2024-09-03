@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-def train_model(model, train_loader, loss, optimizer, batch_size, sequence_length, gradient_clipping, num_epochs=1000):
+def train(model, train_loader, loss, optimizer, batch_size, sequence_length, gradient_clipping, num_epochs=1000):
     model.train() 
     hidden_states_h = []
     hidden_states_c = []

@@ -16,7 +16,7 @@ class LSTMModel(nn.Module):
                             batch_first=True)
         #Drop Out Layer
         self.drop1 = nn.Dropout(dropout)
-        #Final Dense and Softmax Layers
+        #Final Dense layer
         self.finaldense = nn.Linear(n_neurons, num_states)
         #Normalization Layers
         self.lstm_norm = nn.LayerNorm(n_neurons)
@@ -80,8 +80,9 @@ class LSTMModel(nn.Module):
         x, hidden = self.lstm(x, hidden) 
         #Layer Normalization after LSTM
         x = self.lstm_norm(x)
+        x = self.drop1(x)
 
-        #Final Dense and activation Layers
-        output = self.finaldense(x)
-        return output, hidden
+        #Final Dense Layers
+        x = self.finaldense(x)
+        return x, hidden
     
