@@ -1,5 +1,5 @@
 import sys
-sys.path.append('../')
+sys.path.append('home/ycai223/code/rnn_toolkit/')
 
 from rnn_toolkit.data import preprocessing
 
