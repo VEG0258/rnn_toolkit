@@ -1,3 +1,6 @@
 rnn_toolkit/data*
 .DS_store
 .idea*
+*.err
+*.out
+*.pyc
