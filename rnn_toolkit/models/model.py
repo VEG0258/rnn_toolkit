@@ -3,13 +3,13 @@ import torch
 import torch.nn as nn
 
 class LSTMModel(nn.Module):
-    def __init__(self, num_states, n_neurons, batch_size, hidden_sizes, dropout):  #default setting: recurrent activation = sigmoid function, activation function for the cell state = tanh, output activation = tanh 
+    def __init__(self, numstates, n_neurons, batch_size, hidden_sizes, dropout):  #default setting: recurrent activation = sigmoid function, activation function for the cell state = tanh, output activation = tanh 
         super(LSTMModel, self).__init__()
         self.batch_size = batch_size
         self.n_neurons = n_neurons
         self.hidden_sizes = hidden_sizes
         #Feed Forward Dense Layers
-        self.feedforward_layers = self.create_feedforward_layers(num_states, hidden_sizes)
+        self.feedforward_layers = self.create_feedforward_layers(numstates, hidden_sizes)
         #LSTM
         self.lstm = nn.LSTM(input_size=self.hidden_sizes[-1],
                             hidden_size=n_neurons,
@@ -17,7 +17,7 @@ class LSTMModel(nn.Module):
         #Drop Out Layer
         self.drop1 = nn.Dropout(dropout)
         #Final Dense layer
-        self.finaldense = nn.Linear(n_neurons, num_states)
+        self.finaldense = nn.Linear(n_neurons, numstates)
         #Normalization Layers
         self.lstm_norm = nn.LayerNorm(n_neurons)
     
