@@ -1,5 +1,5 @@
 import sys
-sys.path.append('home/ycai223/code/rnn_toolkit/')
+sys.path.append('../')
 
 from rnn_toolkit.models import LSTMModel
 
