@@ -90,8 +90,8 @@ def persisenceplot(dt, s, numstates, batch_size):
 
     plt.legend(loc="upper right")
     plt.xlabel('Persistence Times');
-    plt.savefig(f'LSTM/plots/PersistenceTimes')
-    plt.clf()
+    plt.savefig(f'tests/PersistenceTimes.png')
+    plt.close()
     print("persistence plot done")
 
     #plots mean persistence time of the rnn vs. the data
@@ -102,8 +102,8 @@ def persisenceplot(dt, s, numstates, batch_size):
     plt.xlabel('$<\\tau_{Data}>$')
     plt.ylabel('$<\\tau_{RNN}>$')
     plt.title('Persistence Times')
-    plt.savefig(f'LSTM/plots/meanpersistencetime')
-    plt.clf()
+    plt.savefig(f'tests/meanpersistencetim.png')
+    plt.close()
     print("mean persistence plot done")
 
 def transitionplot(dt, s, numstates):
@@ -128,7 +128,8 @@ def transitionplot(dt, s, numstates):
     fig, (ax1, ax2) = plt.subplots(1, 2,figsize=(15, 15))
     a1=ax2.imshow(T_data,cmap='cubehelix_r',vmin=0,vmax=.55)
     a2=ax1.imshow(T_rnn,cmap='cubehelix_r',vmin=0,vmax=.55)
-    plt.savefig(f'LSTM/plots/transitionmatrix')
+    plt.savefig(f'tests/transitionmatrix.png')
+    plt.close()
     print("transition matrix done")
 
 def eigenvalueplot(dt, s, batch_size, numFlies):
@@ -197,5 +198,5 @@ def eigenvalueplot(dt, s, batch_size, numFlies):
     for i in range(npmeans.shape[1]):
         errory_plot(taus,npmeans[:,i],npsems[:,i],co[i],co2[i],r'$\tau$',r'$|\lambda|$',[min(taus), max(taus),0,1],label=None,title='Data time Scales',scalex='log')
 
-    fig.savefig(f'LSTM/plots/eigenvalues.png')
+    fig.savefig(f'tests/eigenvalues.png')
     print("eigenvalue plot done")
