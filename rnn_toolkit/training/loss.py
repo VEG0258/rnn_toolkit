@@ -4,7 +4,7 @@ import torch.nn as nn
 
 #The output should has a shape of (batch_size * num_class * sequence_length) NO SOFTMAX
 #The targets should has a shape of (batch_size * sequence_length) NOT ONE HOT ENCODED
-def loss(criterion, outputs, targets, sequence_length, normalization):
+def loss_function(criterion, outputs, targets, sequence_length, normalization):
     if normalization == True:
         #reshape outputs
         outputs = outputs.permute(0, 2, 1)

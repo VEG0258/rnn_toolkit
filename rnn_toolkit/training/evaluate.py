@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-import training.loss as loss_module
+from .loss import loss_function
 
 def evaluate(model, criterion, hidden, test_loader, sequence_length):
     model.eval()
@@ -13,7 +13,7 @@ def evaluate(model, criterion, hidden, test_loader, sequence_length):
             hidden = model.repackage_hidden(hidden)
 
             outputs, hidden = model.forward(inputs, hidden) 
-            loss =loss_module.loss(criterion, outputs, labels, sequence_length, normalization)  
+            loss =loss_function(criterion, outputs, labels, sequence_length, normalization)  
             total_loss += loss.item()
         
     avg_loss = total_loss / len(test_loader)

@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-import training.loss as loss_module
+from .loss import loss_function
 
 #PyTorch enables gradient computation by default in training mode, so no need to explicitly add with torch.enable_grad()
 def train(model, hidden, train_loader, criterion, normalization, optimizer, sequence_length, gradient_clipping):
@@ -14,7 +14,7 @@ def train(model, hidden, train_loader, criterion, normalization, optimizer, sequ
 
         optimizer.zero_grad()
         outputs, hidden = model.forward(inputs, hidden) 
-        loss = loss_module.loss(criterion, outputs, labels, sequence_length, normalization)  
+        loss = loss_function(criterion, outputs, labels, sequence_length, normalization)  
         loss.backward() 
         if gradient_clipping == True:
             torch.nn.utils.clip_grad_norm_(model.parameters(), 0.01)
