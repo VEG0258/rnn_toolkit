@@ -30,7 +30,7 @@ class LSTMModel(nn.Module):
         else:
             #if only 1 feed-forward layer
             layers.append(nn.Linear(input_dim, hidden_sizes[0]))
-            layers.append(nn.Relu())
+            layers.append(nn.ReLU())
             #if multiple feed-forward layers
             for i in range(1, len(hidden_sizes)):
                 layers.append(nn.Linear(hidden_sizes[i-1], hidden_sizes[i]))
