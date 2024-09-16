@@ -3,7 +3,7 @@ import torch.nn as nn
 from .train import train
 from .evaluate import evaluate
 
-def train_model(model, train_loader, test_loader, optimizer, batch_size, sequence_length, criterion, gradient_clipping, normalization, num_epochs=1000):
+def train_model(model, train_loader, test_loader, optimizer, batch_size, sequence_length, gradient_clipping, normalization, num_epochs=1000):
     model.eval() 
     hidden_states_h = []
     hidden_states_c = []

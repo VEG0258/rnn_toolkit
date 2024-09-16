@@ -2,6 +2,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 
+#Assumes crossentropy
 #The output should has a shape of (batch_size * num_class * sequence_length) NO SOFTMAX
 #The targets should has a shape of (batch_size * sequence_length) NOT ONE HOT ENCODED
 def loss_function(outputs, targets, sequence_length, normalization):
