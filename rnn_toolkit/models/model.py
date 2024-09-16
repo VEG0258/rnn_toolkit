@@ -45,10 +45,9 @@ class LSTMModel(nn.Module):
                   weight.new_zeros(1, self.batch_size, self.n_neurons))
         return hidden
 
-    #E.g., to create an initializer function that initializes the state with a mean of zero and standard deviation of 0.1, we call make_gaussian_state_initializer(zero_state_initializer, stddev=0.01). 
-    def make_gaussian_state_initializer(self, noise, stddev=0.3):
-        def gaussian_state_initializer(batch_size):
-            init_state_h, init_state_c = self.zero_init_hidden(batch_size)
+    def make_gaussian_state_initializer(self, noise = False, stddev=0.3):
+        def gaussian_state_initializer():
+            init_state_h, init_state_c = self.zero_init_hidden()
             if noise == True:
                 print("noise is True")
                 print("stddev ", stddev)
