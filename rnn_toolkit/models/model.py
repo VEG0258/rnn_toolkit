@@ -28,11 +28,12 @@ class LSTMModel(nn.Module):
         if hidden_sizes is None:
             return None
         else:
-            for i, hidden_size in enumerate(hidden_sizes):
-                if i == 0:
-                    layers.append(nn.Linear(input_dim, hidden_size))
-                else:
-                    layers.append(nn.Linear(hidden_size[-1], hidden_size))
+            #if only 1 feed-forward layer
+            layers.append(nn.Linear(input.dim, hidden_sizes[0]))
+            layers.append(nn.Relu())
+            #if multiple feed-forward layers
+            for i in range(1, len(hidden_sizes)):
+                layers.append(nn.Linear(hidden_sizes[i-1], hidden_sizes[i]))
                 layers.append(nn.ReLU())
             return nn.Sequential(*layers)
         
