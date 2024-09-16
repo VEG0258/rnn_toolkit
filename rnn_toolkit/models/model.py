@@ -58,7 +58,7 @@ class LSTMModel(nn.Module):
             else:
                 print("noice is False")
                 print("stddev ", stddev)
-                return lambda: (init_state_h, init_state_c)
+                return (init_state_h, init_state_c)
         return gaussian_state_initializer
             
     #Wraps hidden states in new Variables, to detach them from their history.       
