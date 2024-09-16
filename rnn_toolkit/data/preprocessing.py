@@ -7,7 +7,7 @@ def preprocessing(name_mat, states, numFlies, numstates, minlength):
     #controls how long is the period of the time series data is used for training by data_fraction
     #this loops sets the size of the numpy array that will contain the data
     minlength=500000
-    mat_file = loadmat(f"data/name_mat") #each sub-array within 'reduced_states' represents the sequence of states for a single fly over time.
+    mat_file = loadmat(name_mat) #each sub-array within 'reduced_states' represents the sequence of states for a single fly over time.
     for i,x in enumerate(mat_file[states]): #x represents each sub-array (or data sequence) in the reduced_states array from your MATLAB file
         if np.size(x[0])<minlength:
             minlength=np.size(x[0])

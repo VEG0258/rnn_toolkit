@@ -13,8 +13,6 @@ import matplotlib.pyplot as plt
 from scipy.io import savemat
 from scipy.io import loadmat
 import h5py
-from sklearn.manifold import MDS
-from sklearn.manifold import TSNE
 from copy import copy
 import random
 import pickle
@@ -27,12 +25,12 @@ from torch.utils.data import TensorDataset, DataLoader
 
 from rnn_toolkit.models import LSTMModel
 from rnn_toolkit.data import preprocessing, batch_data
-from rnn_toolkit.evaluation import persisenceplot, transitionplot, eigenvalueplot, stability_checker
+from rnn_toolkit.evaluation import persisenceplot, transitionplot, eigenvalueplot, stability_checker, loss_plot
 from rnn_toolkit.training import evaluate, loss, optimizer, train_model, train
 
 ### Set up Parameters ###############################################################################################
 
-name_mat='behaviorTimeSeries.mat'
+name_mat='../../../behaviorTimeSeries.mat'
 states='reduced_states'
 
 numFlies=59
@@ -65,11 +63,15 @@ model, hidden_states_h, hidden_states_c, train_loss, test_loss = train_model(mod
 
 ### Evaluate Model ###############################################################################################################
 
-# Hidden States plots
-stability_checker(hidden_states_h, hidden_states_c, time_steps = 1000)
+# Loss Pot
+loss_plot(train_loss, test_loss, time_steps=1000)
+
+# Hidden States plot
+stability_checker(hidden_states_h, hidden_states_c, time_steps=1000)
 
 # Generate Sequences
 
 # Plots
+
 
 
