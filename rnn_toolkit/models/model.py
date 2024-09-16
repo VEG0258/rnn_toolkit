@@ -45,18 +45,21 @@ class LSTMModel(nn.Module):
                   weight.new_zeros(1, self.batch_size, self.n_neurons))
         return hidden
 
-    #E.g., to create an initializer function that initializes the state with a mean of zero and standard deviation of 0.1, we call make_gaussian_state_initializer(zero_init_hidden, stddev=0.01). 
-    def make_gaussian_state_initializer(self, initializer, noise=False, mean = 0, stddev=0.1):
-        def gaussian_state_initializer(shape, batch_size, dtype, index):
-            init_state = initializer(shape, batch_size, dtype, index)
+    #E.g., to create an initializer function that initializes the state with a mean of zero and standard deviation of 0.1, we call make_gaussian_state_initializer(zero_state_initializer, stddev=0.01). 
+    def make_gaussian_state_initializer(self, noise=False, stddev=0.3):
+        def gaussian_state_initializer(batch_size):
+            init_state_h, init_state_c = self.zero_init_hidden(batch_size)
             if noise == True:
-                print("Noisy Initial States")
-                print("mean: ", mean)
+                print("noise is True")
                 print("stddev ", stddev)
-                return lambda: init_state + torch.randn_like(init_state) * stddev + mean
+                noise_h = torch.randn_like(init_state_h) * stddev
+                noise_c = torch.randn_like(init_state_c) * stddev
+                return (init_state_h + noise_h, init_state_c + noise_c)
             else:
-                print("Zero Intial States")
-                return lambda: init_state
+                print("noice is False")
+                print("stddev ", stddev)
+                return lambda: (init_state_h, init_state_c)
+        return gaussian_state_initializer
             
     #Wraps hidden states in new Variables, to detach them from their history.       
     def repackage_hidden(self,h):
