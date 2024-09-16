@@ -26,7 +26,7 @@ from torch.utils.data import TensorDataset, DataLoader
 from rnn_toolkit.models import LSTMModel
 from rnn_toolkit.data import preprocessing, batch_data
 from rnn_toolkit.evaluation import persisenceplot, transitionplot, eigenvalueplot, stability_checker, loss_plot
-from rnn_toolkit.training import evaluate, loss, optimizer, train_model, train
+from rnn_toolkit.training import evaluate, loss_function, optimizer, train_model, train
 
 ### Set up Parameters ###############################################################################################
 
