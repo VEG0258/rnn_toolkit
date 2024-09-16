@@ -28,7 +28,7 @@ class LSTMModel(nn.Module):
         if hidden_sizes is None:
             return None
         else:
-            for i, hidden_size in hidden_sizes:
+            for i, hidden_size in enumerate(hidden_sizes):
                 if i == 0:
                     layers.append(nn.Linear(input_dim, hidden_size))
                 else:
