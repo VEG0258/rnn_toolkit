@@ -46,19 +46,17 @@ class LSTMModel(nn.Module):
         return hidden
 
     def make_gaussian_state_initializer(self, noise = False, stddev=0.3):
-        def gaussian_state_initializer():
-            init_state_h, init_state_c = self.zero_init_hidden()
-            if noise == True:
-                print("noise is True")
-                print("stddev ", stddev)
-                noise_h = torch.randn_like(init_state_h) * stddev
-                noise_c = torch.randn_like(init_state_c) * stddev
-                return (init_state_h + noise_h, init_state_c + noise_c)
-            else:
-                print("noice is False")
-                print("stddev ", stddev)
-                return (init_state_h, init_state_c)
-        return gaussian_state_initializer
+        init_state_h, init_state_c = self.zero_init_hidden()
+        if noise == True:
+            print("noise is True")
+            print("stddev ", stddev)
+            noise_h = torch.randn_like(init_state_h) * stddev
+            noise_c = torch.randn_like(init_state_c) * stddev
+            return (init_state_h + noise_h, init_state_c + noise_c)
+        else:
+            print("noice is False")
+            print("stddev ", stddev)
+            return (init_state_h, init_state_c)
             
     #Wraps hidden states in new Variables, to detach them from their history.       
     def repackage_hidden(self,h):
