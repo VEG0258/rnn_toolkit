@@ -33,17 +33,17 @@ def batch_data(dt, batch_size, sequence_length, numstates, lag, v, one_hot_targe
     target_test=targ[int(v*inp.shape[0]):,:]
 
     #to tensor
-    input_train = torch.tensor(input_train, dtype=torch.float32)
-    input_test = torch.tensor(input_test, dtype=torch.float32)
-    target_train = torch.tensor(target_train, dtype=torch.float32)
-    target_test = torch.tensor(target_test, dtype=torch.float32)
+    input_train = torch.tensor(input_train, dtype=torch.int64)
+    input_test = torch.tensor(input_test, dtype=torch.int64)
+    target_train = torch.tensor(target_train, dtype=torch.int64)
+    target_test = torch.tensor(target_test, dtype=torch.int64)
 
     #one hot encoding on input only (crossentropy do not accept target data in one-hot encoding format)
-    input_train = F.one_hot(input_train, num_classes=numstates)
-    input_test = F.one_hot(input_test, num_classes=numstates)
+    input_train = F.one_hot(input_train, num_classes=numstates).float()
+    input_test = F.one_hot(input_test, num_classes=numstates).float()
     if one_hot_target is True:
-        target_train = F.one_hot(target_train, num_classes=numstates)
-        target_test = F.one_hot(target_test, num_classes=numstates)
+        target_train = F.one_hot(target_train, num_classes=numstates).float()
+        target_test = F.one_hot(target_test, num_classes=numstates).float()
 
 
     return input_train, input_test, target_train, target_test
