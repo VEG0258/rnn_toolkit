@@ -57,9 +57,8 @@ hidden_sizes = [128, 128, 128]
 model = LSTMModel(numstates, n_neurons, batch_size, hidden_sizes, dropout = 0.1)
 
 ### Train Model ##############################################################################################################
-optimizer = optimizer(model, lr = 0.05)
-criterion = nn.CrossEntropyLoss()  
-model, hidden_states_h, hidden_states_c, train_loss, test_loss = train_model(model, train_loader, test_loader, optimizer, batch_size, sequence_length, criterion, gradient_clipping = True, normalization = True, num_epochs=1000)
+optimizer = optimizer(model, lr = 0.05) 
+model, hidden_states_h, hidden_states_c, train_loss, test_loss = train_model(model, train_loader, test_loader, optimizer, batch_size, sequence_length, gradient_clipping = True, normalization = True, num_epochs=1000)
 
 ### Evaluate Model ###############################################################################################################
 

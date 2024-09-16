@@ -4,12 +4,19 @@ import torch.nn as nn
 
 #The output should has a shape of (batch_size * num_class * sequence_length) NO SOFTMAX
 #The targets should has a shape of (batch_size * sequence_length) NOT ONE HOT ENCODED
-def loss_function(criterion, outputs, targets, sequence_length, normalization):
+def loss_function(outputs, targets, sequence_length, normalization):
+    if normalization:
+        reduction = 'none'
+    else:
+        reduction = 'mean'
+
+    criterion = nn.CrossEntropyLoss(reduction=reduction)
+
     if normalization == True:
         #reshape outputs
         outputs = outputs.permute(0, 2, 1)
         #get raw_loss
-        raw_loss = criterion(outputs, targets, reduction = 'none')  # (batch_size, seq_length)
+        raw_loss = criterion(outputs, targets)  # (batch_size, seq_length)
         #sum the loss terms along the sequence
         summed_loss = torch.sum(raw_loss, dim=1)  # (batch_size,)
         #normalize

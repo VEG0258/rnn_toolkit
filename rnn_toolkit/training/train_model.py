@@ -15,7 +15,7 @@ def train_model(model, train_loader, test_loader, optimizer, batch_size, sequenc
 
         hidden = model.make_gaussian_state_initializer(noise = True)
         #train
-        model, hidden, train_avg_loss= train(model, hidden, train_loader, criterion, normalization, optimizer, sequence_length, gradient_clipping)
+        model, hidden, train_avg_loss= train(model, hidden, train_loader, normalization, optimizer, sequence_length, gradient_clipping)
         #storing train result
         train_loss.append(train_avg_loss)
         h, c = hidden
@@ -23,7 +23,7 @@ def train_model(model, train_loader, test_loader, optimizer, batch_size, sequenc
         hidden_states_c.append(c)
 
         #test
-        test_avg_loss = evaluate(model, criterion, hidden, test_loader, sequence_length)
+        test_avg_loss = evaluate(model, hidden, test_loader, sequence_length)
         #storing test result
         test_loss.append(test_avg_loss)
 
