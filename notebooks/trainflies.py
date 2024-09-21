@@ -29,6 +29,7 @@ from rnn_toolkit.evaluation import persisenceplot, transitionplot, eigenvalueplo
 from rnn_toolkit.training import evaluate, loss_function, optimizer, train_model, train
 
 ### Sep up CUDA ##################################################################################################
+print("cuDNN version:", torch.backends.cudnn.version())
 
 # Check if CUDA is available and print the result
 if torch.cuda.is_available():
