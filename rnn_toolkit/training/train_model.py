@@ -38,7 +38,7 @@ def train_model(model, device, train_loader, test_loader, optimizer, batch_size,
                 'test_loss': test_avg_loss,
                 'hidden_states_h': hidden_states_h,
                 'hidden_states_c': hidden_states_c
-            }, f"LSTM/model/epoch_{epoch + 1}.pt")
+            }, f"tests/epoch_{epoch + 1}.pt")
             print(f"Model checkpoint saved at epoch {epoch + 1}")
 
 
