@@ -23,7 +23,7 @@ def train_model(model, device, train_loader, test_loader, optimizer, batch_size,
         hidden_states_c.append(c)
 
         #test
-        test_avg_loss = evaluate(model, device, hidden, test_loader, sequence_length)
+        test_avg_loss = evaluate(model, device, hidden, test_loader, sequence_length, normalization)
         #storing test result
         test_loss.append(test_avg_loss)
 
