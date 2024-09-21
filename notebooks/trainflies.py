@@ -28,6 +28,16 @@ from rnn_toolkit.data import preprocessing, batch_data
 from rnn_toolkit.evaluation import persisenceplot, transitionplot, eigenvalueplot, stability_checker, loss_plot
 from rnn_toolkit.training import evaluate, loss_function, optimizer, train_model, train
 
+### Sep up CUDA ##################################################################################################
+
+# Check if CUDA is available and print the result
+if torch.cuda.is_available():
+    print("CUDA is available! Using GPU.")
+    device = torch.device("cuda")
+else:
+    print("CUDA is not available. Using CPU.")
+    device = torch.device("cpu")
+
 ### Set up Parameters ###############################################################################################
 
 name_mat='../../../behaviorTimeSeries.mat'
@@ -54,11 +64,11 @@ test_loader = DataLoader(test_dataset, batch_size=59, shuffle=False)
 ### Load LSTM Model ###########################################################################################################
 
 hidden_sizes = [128, 128, 128]
-model = LSTMModel(numstates, n_neurons, batch_size, hidden_sizes, dropout = 0.1)
+model = LSTMModel(device, numstates, n_neurons, batch_size, hidden_sizes, dropout = 0.1).to(device)
 
 ### Train Model ##############################################################################################################
 optimizer = optimizer(model, lr = 0.05) 
-model, hidden_states_h, hidden_states_c, train_loss, test_loss = train_model(model, train_loader, test_loader, optimizer, batch_size, sequence_length, gradient_clipping = True, normalization = True, num_epochs=1000)
+model, hidden_states_h, hidden_states_c, train_loss, test_loss = train_model(model, device, train_loader, test_loader, optimizer, batch_size, sequence_length, gradient_clipping = True, normalization = True, num_epochs=1000)
 
 ### Evaluate Model ###############################################################################################################
 

@@ -2,12 +2,13 @@ import torch
 import torch.nn as nn
 from .loss import loss_function
 
-def evaluate(model, hidden, test_loader, sequence_length):
+def evaluate(model, device, hidden, test_loader, sequence_length):
     model.eval()
     total_loss = 0
 
     with torch.no_grad():  # Disable gradient calculation
         for inputs, labels in test_loader:
+            inputs, labels = inputs.to(device), labels.to(device)
             # Starting each batch, we detach the hidden state from how it was previously produced.
             # If we didn't, the model would try backpropagating all the way to start of the dataset.
             hidden = model.repackage_hidden(hidden)

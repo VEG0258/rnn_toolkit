@@ -3,8 +3,9 @@ import torch
 import torch.nn as nn
 
 class LSTMModel(nn.Module):
-    def __init__(self, numstates, n_neurons, batch_size, hidden_sizes, dropout):  #default setting: recurrent activation = sigmoid function, activation function for the cell state = tanh, output activation = tanh 
+    def __init__(self, device, numstates, n_neurons, batch_size, hidden_sizes, dropout):  #default setting: recurrent activation = sigmoid function, activation function for the cell state = tanh, output activation = tanh 
         super(LSTMModel, self).__init__()
+        self.device = device
         self.batch_size = batch_size
         self.n_neurons = n_neurons
         self.hidden_sizes = hidden_sizes
@@ -41,8 +42,8 @@ class LSTMModel(nn.Module):
     #Initalizing the hidden states
     def zero_init_hidden(self):
         weight = next(self.parameters()).data
-        hidden = (weight.new_zeros(1, self.batch_size, self.n_neurons),
-                  weight.new_zeros(1, self.batch_size, self.n_neurons))
+        hidden = (weight.new_zeros(1, self.batch_size, self.n_neurons, device = self.device),
+                  weight.new_zeros(1, self.batch_size, self.n_neurons, device = self.device))
         return hidden
 
     def make_gaussian_state_initializer(self, noise = False, stddev=0.3):
