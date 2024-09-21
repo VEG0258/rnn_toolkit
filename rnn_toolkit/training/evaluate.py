@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 from .loss import loss_function
 
-def evaluate(model, device, hidden, test_loader, sequence_length):
+def evaluate(model, device, hidden, test_loader, sequence_length, normalization):
     model.eval()
     total_loss = 0
 
