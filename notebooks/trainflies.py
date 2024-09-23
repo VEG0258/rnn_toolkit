@@ -30,13 +30,15 @@ from rnn_toolkit.training import evaluate, loss_function, optimizer, train_model
 
 ### Sep up CUDA ##################################################################################################
 
-# Check if CUDA is available and print the result
-if torch.cuda.is_available():
-    print("CUDA is available! Using GPU.")
-    device = torch.device("cuda")
-else:
-    print("CUDA is not available. Using CPU.")
-    device = torch.device("cpu")
+try:
+    if torch.cuda.is_available():
+        print("CUDA is available! Using GPU.")
+        device = torch.device("cuda")
+    else:
+        print("CUDA is not available. Using CPU.")
+        device = torch.device("cpu")
+except Exception as e:
+    print("Error during CUDA initialization:", e)
 
 ### Set up Parameters ###############################################################################################
 
