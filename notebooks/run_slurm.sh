@@ -5,6 +5,6 @@
 #SBATCH -o slurm.%N.%j.out
 #SBATCH -e slurm.%N.%j.err
 
-/apps/conda/ycai223/envs/RNNTF/bin/python trainflies.py
+/apps/conda/ycai223/envs/torch/bin/python trainflies.py
 
 
