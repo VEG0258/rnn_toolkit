@@ -1,5 +1,5 @@
 ### Import packages ########################################################################################
-
+print("import package started")
 # Run with the newest versions of all codes without restart (typically used in ipynb)
 # %load_ext autoreload
 # %autoreload 2
@@ -22,14 +22,14 @@ import torch.nn as nn
 from torch.utils.data import TensorDataset, DataLoader
 
 ### Import Modules ############################################################################################
-
+print("import modules started")
 from rnn_toolkit.models import LSTMModel
 from rnn_toolkit.data import preprocessing, batch_data
 from rnn_toolkit.evaluation import persisenceplot, transitionplot, eigenvalueplot, stability_checker, loss_plot
 from rnn_toolkit.training import evaluate, loss_function, optimizer, train_model, train
 
 ### Sep up CUDA ##################################################################################################
-
+print("test GPU started")
 try:
     if torch.cuda.is_available():
         print("CUDA is available! Using GPU.")
