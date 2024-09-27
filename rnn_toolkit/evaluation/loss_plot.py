@@ -11,6 +11,6 @@ def loss_plot(train_loss, test_loss, time_steps):
     plt.xlabel("Epoch")
     plt.ylabel("Loss Value")
 
-    plt.savefig(f"tests/loss_plot.png")
+    plt.savefig(f"../tests/loss_plot.png")
     plt.close()
     print("loss plot printed")

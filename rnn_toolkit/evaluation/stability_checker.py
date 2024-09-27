@@ -19,6 +19,6 @@ def stability_checker(hidden_states_h, hidden_states_c, time_steps):
     plt.ylabel('Cell State Value')
     
     plt.tight_layout()
-    plt.savefig(f"tests/stability_plot.png")
+    plt.savefig(f"../tests/stability_plot.png")
     plt.close()
     print("stability plot printed")
